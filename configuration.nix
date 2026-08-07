@@ -1,5 +1,5 @@
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -45,12 +45,12 @@
     ];
   };
 
-  programs.firefox.enable = true;
   programs.zsh.enable = true;
 
   users.users.yigit.shell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
+    inputs.helium.packages.${pkgs.system}.default
     vim
     wget
     git
