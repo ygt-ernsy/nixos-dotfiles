@@ -51,6 +51,7 @@
         userName = "ygt-ernsy";
         userEmail = "yigiterensoy@hotmail.com";
         package = pkgs.git.override { withLibsecret = true; };
+        lfs.enable = true;
         settings = {
             credential.helper = "libsecret";
         };
