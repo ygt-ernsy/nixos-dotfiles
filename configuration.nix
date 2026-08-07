@@ -24,7 +24,13 @@
 
   # Wayland wms
   programs.hyprland.enable = true;
-  services.displayManager.ly.enable = true;
+  services.displayManager.sddm = {
+      enable = true;
+  };
+  security.pam.services.sddm.enableGnomeKeyring = true;
+  services.gnome.gnome-keyring.enable = true;
+
+  services.xserver.enable = true;
 
   services.pipewire = {
     enable = true;

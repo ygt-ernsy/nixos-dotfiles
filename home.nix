@@ -56,8 +56,6 @@
         };
     };
 
-    services.gnome-keyring.enable = true;
-
     # Because of the changes reqired for the vm I will delete this after I install nixos in my actual computer
     home.file.".config/hypr".source = ./config/hypr;
 
