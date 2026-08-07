@@ -3,7 +3,6 @@
 {
     home.username = "yigit";
     home.homeDirectory = "/home/yigit";
-    programs.git.enable = true;
     home.stateVersion = "26.05";
 
     programs.zsh = {
@@ -42,15 +41,13 @@
         '';
     };
 
-    # copy this from dotfiles
-    home.file.".p10k.zsh".source = ./.p10k.zsh;
-
     programs.fzf = {
         enable = true;
         enableZshIntegration = true;
     };
 
     programs.git = {
+        enable = true;
         userName = "ygt-ernsy";
         userEmail = "yigiterensoy@hotmail.com";
         package = pkgs.git.override { withLibsecret = true; };
