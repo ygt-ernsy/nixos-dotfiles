@@ -1,0 +1,62 @@
+
+{ config, lib, pkgs, ... }:
+
+{
+  imports =
+    [
+      ./hardware-configuration.nix
+    ];
+
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/vda";
+    # for laptop later
+    # efiSupport = true;
+    # device = "nodev";
+    # useOSProber = true;
+  };
+
+  networking.hostName = "nixos-btw";
+
+  networking.networkmanager.enable = true;
+
+  time.timeZone = "Turkey/Istanbul";
+
+  # Wayland wms
+  programs.hyprland.enable = true;
+  services.displayManager.ly.enable = true;
+
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+  };
+
+  users.users.yigit = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    packages = with pkgs; [
+      tree
+    ];
+  };
+
+  programs.firefox.enable = true;
+  programs.zsh.enable = true;
+
+  users.users.yigit.shell = pkgs.zsh;
+
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    git
+    kitty
+  ];
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+  ];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Do not touch apereantly
+  system.stateVersion = "26.05"; # Did you read the comment?
+}

@@ -1,0 +1,134 @@
+ { config, pkgs, ... }:
+
+{
+    home.username = "yigit";
+    home.homeDirectory = "/home/yigit";
+    programs.git.enable = true;
+    home.stateVersion = "26.05";
+
+    programs.zsh = {
+        enable = true;
+        autosuggestion.enable = true;
+        syntaxHighlighting.enable = true;
+
+        oh-my-zsh = {
+            enable = true;
+            plugins = [ "git" ];
+        };
+
+        plugins = [
+            {
+                name = "powerlevel10k";
+                src = pkgs.zsh-powerlevel10k;
+                file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+            }
+        ];
+
+        shellAliases = {
+            btw = "echo I use nixos btw";
+            t = "tmux a || tmux";
+            v = "nvim";
+            nrs = "sudo nixos-rebuild switch --flake $HOME/nixos-dotfiles#nixos-btw";
+        };
+
+        initContent = ''
+        export GOPATH=$HOME/.go
+        export PATH="$HOME/.local/bin:$PATH"
+        export PATH="$HOME/.local/scripts:$PATH"
+        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+        if [ -f "$HOME/.zshrc.secrets" ]; then
+            source "$HOME/.zshrc.secrets"
+        fi
+        '';
+    };
+
+    # copy this from dotfiles
+    home.file.".p10k.zsh".source = ./.p10k.zsh;
+
+    programs.fzf = {
+        enable = true;
+        enableZshIntegration = true;
+    };
+
+    programs.git = {
+        userName = "ygt-ernsy";
+        userEmail = "yigiterensoy@hotmail.com";
+        package = pkgs.git.override { withLibsecret = true; };
+        settings = {
+            credential.helper = "libsecret";
+        };
+    };
+
+    services.gnome-keyring.enable = true;
+
+    # Because of the changes reqired for the vm I will delete this after I install nixos in my actual computer
+    home.file.".config/hypr".source = ./config/hypr;
+
+    qt = {
+        enable = true;
+        platformTheme.name = "qt6ct";
+        style.name = "kvantum";
+    };
+
+    # clean up later
+    home.file.".config/Kvantum/Kvantum-Tokyo-Night".source = 
+    "${pkgs.fetchFromGitHub {
+      owner = "0xsch1zo";
+      repo = "Kvantum-Tokyo-Night";
+      rev = "main";
+      hash = "sha256-mcxTggpj2SVhHur7xzZxHeOZO7QtWCZsq0m6eJKy6aQ=";
+    }}/Kvantum-Tokyo-Night";
+
+    home.file.".config/Kvantum/KvLibadwaita".source = 
+    "${pkgs.fetchFromGitHub {
+      owner = "GabePoel";
+      repo = "KvLibadwaita";
+      rev = "main";
+      hash = "sha256-jCXME6mpqqWd7gWReT04a//2O83VQcOaqIIXa+Frntc=";
+    }}/src/KvLibadwaita";
+
+    home.file.".config/Kvantum/rose-pine-iris".source = 
+        "${pkgs.rose-pine-kvantum}/share/Kvantum/themes/rose-pine-iris";
+
+    # sort later
+    home.packages = with pkgs; [
+    libsecret
+    gnome-keyring
+    lxqt.lxqt-policykit
+    github-cli
+    zsh-powerlevel10k
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    oh-my-zsh
+    fzf
+    fnm
+    adw-gtk3
+    rose-pine-gtk-theme
+    tokyonight-gtk-theme
+    glib
+    stow
+    libsForQt5.qtstyleplugin-kvantum
+    qt6Packages.qtstyleplugin-kvantum
+    kdePackages.qt6ct
+    libsForQt5.qt5ct
+    nwg-look
+    tela-icon-theme
+	fastfetch
+	waybar
+	unzip
+    neovim
+	rofi
+	dms-shell
+	kdePackages.dolphin	
+	bibata-cursors
+	lxqt.lxqt-policykit
+	hypridle
+	hyprshot
+	ripgrep
+	nixpkgs-fmt
+	tree-sitter
+	quickshell
+	nodejs
+	gcc
+    ];
+}
