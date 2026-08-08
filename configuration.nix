@@ -9,11 +9,11 @@
 
   boot.loader.grub = {
     enable = true;
-    device = "/dev/vda";
+    #device = "/dev/vda";
     # for laptop later
-    # efiSupport = true;
-    # device = "nodev";
-    # useOSProber = true;
+    efiSupport = true;
+    device = "nodev";
+    useOSProber = true;
   };
 
   networking.hostName = "nixos-btw";
