@@ -61,6 +61,8 @@
       };
   };
 
+  services.blueman.enable = true;
+
   time.timeZone = "Turkey/Istanbul";
 
   # Wayland wms
