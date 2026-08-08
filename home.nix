@@ -63,6 +63,8 @@
         style.name = "kvantum";
     };
 
+    gtk.enable = true;
+
     # clean up later
     home.file.".config/Kvantum/Kvantum-Tokyo-Night".source = 
     "${pkgs.fetchFromGitHub {
@@ -85,6 +87,7 @@
 
     # sort later
     home.packages = with pkgs; [
+    glib
     matugen
     libsecret
     gnome-keyring

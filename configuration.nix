@@ -46,15 +46,24 @@
   };
 
   programs.zsh.enable = true;
+  programs.dconf.enable = true;
 
   users.users.yigit.shell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
     inputs.helium.packages.${pkgs.system}.default
+    gsettings-desktop-schemas
     vim
     wget
     git
     kitty
+  ];
+
+  environment.variables.GSETTINGS_SCHEMA_DIR =
+      "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
+
+  services.dbus.packages = with pkgs; [ 
+      gsettings-desktop-schemas 
   ];
 
   fonts.packages = with pkgs; [
