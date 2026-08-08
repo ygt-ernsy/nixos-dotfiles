@@ -9,24 +9,67 @@
 
   boot.loader.grub = {
     enable = true;
-    #device = "/dev/vda";
-    # for laptop later
     efiSupport = true;
     device = "nodev";
     useOSProber = true;
+  };
+
+  boot.kernelParams = [
+  "quiet"
+  "splash"
+  "vga=current"
+  "rd.systemd.show_status=false"
+  "rd.udev.log_level=3"
+  "udev.log_priority=3"
+  ];
+
+
+  hardware.graphics = {
+    enable = true;
+  };
+
+  services.xserver.videoDrivers = ["nvidia"];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+
+    open = false;
+
+    nvidiaSettings = true;
+
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 
   networking.hostName = "nixos-btw";
 
   networking.networkmanager.enable = true;
 
+  hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+          General = {
+              Experimental = true;
+              FastConnectable = true;
+          };
+          Policy = {
+              AutoEnable = true;
+          };
+      };
+  };
+
   time.timeZone = "Turkey/Istanbul";
 
   # Wayland wms
   programs.hyprland.enable = true;
+
   services.displayManager.sddm = {
       enable = true;
   };
+
   security.pam.services.sddm.enableGnomeKeyring = true;
   services.gnome.gnome-keyring.enable = true;
 
@@ -46,9 +89,11 @@
   };
 
   programs.zsh.enable = true;
+  users.users.yigit.shell = pkgs.zsh;
+
   programs.dconf.enable = true;
 
-  users.users.yigit.shell = pkgs.zsh;
+  nixpkgs.config.allowUnfree = true; 
 
   environment.systemPackages = with pkgs; [
     inputs.helium.packages.${pkgs.system}.default
@@ -65,6 +110,8 @@
   services.dbus.packages = with pkgs; [ 
       gsettings-desktop-schemas 
   ];
+
+  services.power-profiles-daemon.enable = true;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
