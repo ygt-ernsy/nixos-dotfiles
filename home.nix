@@ -57,9 +57,6 @@
         };
     };
 
-    # Because of the changes reqired for the vm I will delete this after I install nixos in my actual computer
-    home.file.".config/hypr".source = ./config/hypr;
-
     qt = {
         enable = true;
         platformTheme.name = "qt6ct";
@@ -88,6 +85,7 @@
 
     # sort later
     home.packages = with pkgs; [
+    matugen
     libsecret
     gnome-keyring
     lxqt.lxqt-policykit
