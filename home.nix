@@ -87,17 +87,11 @@
 
     # sort later
     home.packages = with pkgs; [
-    steam
-    power-profiles-daemon
     dgop
-    bluez
-    blueman
     obsidian
-    glib
     matugen
     libsecret
     gnome-keyring
-    lxqt.lxqt-policykit
     github-cli
     zsh-powerlevel10k
     zsh-autosuggestions

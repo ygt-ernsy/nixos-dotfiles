@@ -13,14 +13,14 @@
     device = "nodev";
     useOSProber = true;
     configurationLimit = 10;
+    efiInstallAsRemovable = true;
   };
 
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.canTouchEfiVariables = false;
 
   boot.kernelParams = [
   "quiet"
   "splash"
-  "nvidia-drm.modeset=1"
   "rd.systemd.show_status=false"
   "rd.udev.log_level=3"
   "udev.log_priority=3"
@@ -29,9 +29,10 @@
 
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  # services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -71,14 +72,17 @@
   # Wayland wms
   programs.hyprland.enable = true;
 
+  programs.steam.enable = true;
+
   services.displayManager.sddm = {
       enable = true;
+      wayland.enable = true;
   };
 
   security.pam.services.sddm.enableGnomeKeyring = true;
   services.gnome.gnome-keyring.enable = true;
 
-  services.xserver.enable = true;
+  # services.xserver.enable = true;
 
   services.pipewire = {
     enable = true;
