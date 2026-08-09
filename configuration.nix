@@ -12,12 +12,15 @@
     efiSupport = true;
     device = "nodev";
     useOSProber = true;
+    configurationLimit = 10;
   };
+
+  boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelParams = [
   "quiet"
   "splash"
-  "vga=current"
+  "nvidia-drm.modeset=1"
   "rd.systemd.show_status=false"
   "rd.udev.log_level=3"
   "udev.log_priority=3"
@@ -40,7 +43,7 @@
 
     nvidiaSettings = true;
 
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   networking.hostName = "nixos-btw";
