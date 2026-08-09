@@ -66,7 +66,7 @@
 
   services.blueman.enable = true;
 
-  time.timeZone = "Turkey/Istanbul";
+  time.timeZone = "Europe/Istanbul";
 
   # Wayland wms
   programs.hyprland.enable = true;
