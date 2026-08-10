@@ -46,7 +46,8 @@
 
     nvidiaSettings = true;
 
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # stable pins 595.x on 26.05; beta tracks the 610.x series Arch runs fine here
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
   networking.hostName = "nixos-btw";
@@ -76,14 +77,20 @@
 
   programs.steam.enable = true;
 
-  services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      # weston blanks eDP-1 on nvidia with multiple outputs
-      wayland.compositor = "kwin";
+  # greetd/tuigreet instead of sddm: the greeter runs on the VT with no
+  # compositor of its own, so nvidia + multi-monitor can't break the login screen
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      command = "${lib.getExe pkgs.greetd.tuigreet} --time --remember --remember-session --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
+      user = "greeter";
+    };
   };
 
-  security.pam.services.sddm.enableGnomeKeyring = true;
+  # keeps tuigreet from being scribbled over by late boot messages
+  systemd.services.greetd.serviceConfig.Type = "idle";
+
+  security.pam.services.greetd.enableGnomeKeyring = true;
   security.pam.services.login.enableGnomeKeyring = true;
   services.gnome.gnome-keyring.enable = true;
 
