@@ -79,6 +79,8 @@
   services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
+      # weston blanks eDP-1 on nvidia with multiple outputs
+      wayland.compositor = "kwin";
   };
 
   security.pam.services.sddm.enableGnomeKeyring = true;
