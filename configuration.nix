@@ -21,6 +21,7 @@
   boot.kernelParams = [
   "quiet"
   "splash"
+  "loglevel=3"
   "rd.systemd.show_status=false"
   "rd.udev.log_level=3"
   "udev.log_priority=3"
@@ -32,7 +33,8 @@
     enable32Bit = true;
   };
 
-  # services.xserver.videoDrivers = ["nvidia"];
+  # Required even on Wayland: this is what activates the hardware.nvidia module.
+  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -80,9 +82,8 @@
   };
 
   security.pam.services.sddm.enableGnomeKeyring = true;
+  security.pam.services.login.enableGnomeKeyring = true;
   services.gnome.gnome-keyring.enable = true;
-
-  # services.xserver.enable = true;
 
   services.pipewire = {
     enable = true;
@@ -105,7 +106,7 @@
   nixpkgs.config.allowUnfree = true; 
 
   environment.systemPackages = with pkgs; [
-    inputs.helium.packages.${pkgs.system}.default
+    inputs.helium.packages.${pkgs.hostPlatform.system}.default
     gsettings-desktop-schemas
     vim
     wget

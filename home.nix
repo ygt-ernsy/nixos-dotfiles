@@ -31,6 +31,9 @@
         };
 
         initContent = ''
+        # Force git to prompt in the terminal instead of the GUI askpass dialog
+        unset SSH_ASKPASS
+        unset GIT_ASKPASS
         export GOPATH=$HOME/.go
         export PATH="$HOME/.local/bin:$PATH"
         export PATH="$HOME/.local/scripts:$PATH"
@@ -48,11 +51,11 @@
 
     programs.git = {
         enable = true;
-        userName = "ygt-ernsy";
-        userEmail = "yigiterensoy@hotmail.com";
         package = pkgs.git.override { withLibsecret = true; };
         lfs.enable = true;
         settings = {
+            user.name = "ygt-ernsy";
+            user.email = "yigiterensoy@hotmail.com";
             credential.helper = "libsecret";
         };
     };
@@ -91,7 +94,6 @@
     obsidian
     matugen
     libsecret
-    gnome-keyring
     github-cli
     zsh-powerlevel10k
     zsh-autosuggestions
