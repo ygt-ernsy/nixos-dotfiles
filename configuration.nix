@@ -89,8 +89,8 @@
   programs.silentSDDM = {
     enable = true;
     theme = "default";
-    backgrounds.my_wallpaper = /home/yigit/Pictures/Wallpapers/mandelbrot_full_blue.png;
-    settings.LockScreen.background = "my_wallpaper";
+    backgrounds.my_wallpaper = ./wallpapers/mandelbrot_full_blue.png;
+    settings.LoginScreen.background = "mandelbrot_full_blue.png";
   };
 
   services.displayManager.defaultSession = "hyprland";

@@ -97,6 +97,7 @@
 
     # sort later
     home.packages = with pkgs; [
+    kdePackages.qtmultimedia
     kdePackages.okular
     pavucontrol
     carla
