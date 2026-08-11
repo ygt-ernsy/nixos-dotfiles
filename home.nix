@@ -60,6 +60,13 @@
         };
     };
 
+    home.pointerCursor = {
+        name = "Bibata-Modern-Classic";
+        package = pkgs.bibata-cursors;
+        size = 12;
+        x11.enable = true;
+    };
+
     qt = {
         enable = true;
         platformTheme.name = "qt6ct";
@@ -90,6 +97,9 @@
 
     # sort later
     home.packages = with pkgs; [
+    pavucontrol
+    carla
+    tmux
     dgop
     obsidian
     matugen
