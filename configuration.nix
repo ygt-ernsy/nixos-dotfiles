@@ -33,7 +33,6 @@
     enable32Bit = true;
   };
 
-  # Required even on Wayland: this is what activates the hardware.nvidia module.
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
@@ -46,7 +45,6 @@
 
     nvidiaSettings = true;
 
-    # stable pins 595.x on 26.05; beta tracks the 610.x series Arch runs fine here
     package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
@@ -73,24 +71,25 @@
   time.timeZone = "Europe/Istanbul";
 
   # Wayland wms
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+  };
 
   programs.steam.enable = true;
 
-  # greetd/tuigreet instead of sddm: the greeter runs on the VT with no
-  # compositor of its own, so nvidia + multi-monitor can't break the login screen
-  services.greetd = {
+  # X11 is what the X server needs to exist for sddm's X11 greeter. It does not
+  # pull in a desktop, and hyprland still runs as a native wayland session.
+  services.xserver.enable = true;
+
+  services.displayManager.sddm = {
     enable = true;
-    settings.default_session = {
-      command = "${lib.getExe pkgs.greetd.tuigreet} --time --remember --remember-session --sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions";
-      user = "greeter";
-    };
+    package = pkgs.kdePackages.sddm;
+    wayland.enable = false;
   };
 
-  # keeps tuigreet from being scribbled over by late boot messages
-  systemd.services.greetd.serviceConfig.Type = "idle";
+  services.displayManager.defaultSession = "hyprland";
 
-  security.pam.services.greetd.enableGnomeKeyring = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
   security.pam.services.login.enableGnomeKeyring = true;
   services.gnome.gnome-keyring.enable = true;
 
@@ -132,8 +131,12 @@
 
   services.power-profiles-daemon.enable = true;
 
+  fonts.enableDefaultPackages = true;
+
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
+    noto-fonts
+    noto-fonts-cjk-sans
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
