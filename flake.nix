@@ -13,11 +13,10 @@
         inputs.nixpkgs.follows = "nixpkgs";
        };
 
-       # step two of the sddm work, see configuration.nix
-       # silentSDDM = {
-       #  url = "github:uiriansan/SilentSDDM";
-       #  inputs.nixpkgs.follows = "nixpkgs";
-       # };
+       silentSDDM = {
+        url = "github:uiriansan/SilentSDDM";
+        inputs.nixpkgs.follows = "nixpkgs";
+       };
 	};
 
 	outputs = { self, nixpkgs, home-manager, ... }@inputs: {

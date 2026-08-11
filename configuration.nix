@@ -5,6 +5,7 @@
   imports =
     [
       ./hardware-configuration.nix
+      inputs.silentSDDM.nixosModules.default
     ];
 
   boot.loader.grub = {
@@ -77,14 +78,19 @@
 
   programs.steam.enable = true;
 
-  # X11 is what the X server needs to exist for sddm's X11 greeter. It does not
-  # pull in a desktop, and hyprland still runs as a native wayland session.
   services.xserver.enable = true;
 
   services.displayManager.sddm = {
     enable = true;
     package = pkgs.kdePackages.sddm;
     wayland.enable = false;
+  };
+
+  programs.silentSDDM = {
+    enable = true;
+    theme = "default";
+    backgrounds.my_wallpaper = /home/yigit/Pictures/Wallpapers/mandelbrot_full_blue.png;
+    settings.LockScreen.background = "my_wallpaper";
   };
 
   services.displayManager.defaultSession = "hyprland";
