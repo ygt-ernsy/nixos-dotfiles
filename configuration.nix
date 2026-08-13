@@ -91,6 +91,7 @@
     theme = "default";
     backgrounds.my_wallpaper = ./wallpapers/mandelbrot_full_blue.png;
     settings.LoginScreen.background = "mandelbrot_full_blue.png";
+    settings.LockScreen.background = "mandelbrot_full_blue.png";
   };
 
   services.displayManager.defaultSession = "hyprland";

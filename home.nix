@@ -75,6 +75,8 @@
 
     gtk.enable = true;
 
+    xdg.configFile."menus/applications.menu".source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+
     # clean up later
     home.file.".config/Kvantum/Kvantum-Tokyo-Night".source = 
     "${pkgs.fetchFromGitHub {
@@ -97,6 +99,7 @@
 
     # sort later
     home.packages = with pkgs; [
+    kdePackages.kservice
     kdePackages.qtmultimedia
     kdePackages.okular
     pavucontrol
