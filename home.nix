@@ -75,7 +75,10 @@
 
     gtk.enable = true;
 
-    xdg.configFile."menus/applications.menu".source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+    xdg = {
+        configFile."menus/applications.menu".source = "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+        mime.enable = true;
+    };
 
     # clean up later
     home.file.".config/Kvantum/Kvantum-Tokyo-Night".source = 
