@@ -49,6 +49,8 @@
     package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
+  powerManagement.cpuFreqGovernor = "performance";
+
   networking.hostName = "nixos-btw";
 
   networking.networkmanager.enable = true;
