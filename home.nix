@@ -102,6 +102,10 @@
 
     # sort later
     home.packages = with pkgs; [
+    pnpm
+    spotify
+    vscode
+    nordic
     kdePackages.kservice
     kdePackages.qtmultimedia
     kdePackages.okular
