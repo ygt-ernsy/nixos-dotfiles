@@ -55,6 +55,9 @@
 
   networking.networkmanager.enable = true;
 
+  services.resolved.enable = true;
+  networking.networkmanager.dns = "systemd-resolved";
+
   hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
@@ -125,6 +128,8 @@
   nixpkgs.config.allowUnfree = true; 
 
   environment.systemPackages = with pkgs; [
+    xsettingsd
+    xorg.xrdb
     nodejs
     postgrest
     inputs.helium.packages.${pkgs.hostPlatform.system}.default

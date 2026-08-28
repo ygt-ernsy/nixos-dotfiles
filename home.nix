@@ -1,4 +1,4 @@
- { config, pkgs, ... }:
+ { config, pkgs, lib, ... }:
 
 {
     home.username = "yigit";
@@ -30,18 +30,25 @@
             nrs = "sudo nixos-rebuild switch --flake $HOME/nixos-dotfiles#nixos-btw";
         };
 
-        initContent = ''
-        # Force git to prompt in the terminal instead of the GUI askpass dialog
-        unset SSH_ASKPASS
-        unset GIT_ASKPASS
-        export GOPATH=$HOME/.go
-        export PATH="$HOME/.local/bin:$PATH"
-        export PATH="$HOME/.local/scripts:$PATH"
-        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-        if [ -f "$HOME/.zshrc.secrets" ]; then
-            source "$HOME/.zshrc.secrets"
-        fi
-        '';
+        initContent = lib.mkMerge [
+            (lib.mkOrder 500 ''
+            if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+                source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+            fi
+            '')
+
+            (lib.mkOrder 1000 ''
+            unset SSH_ASKPASS
+            unset GIT_ASKPASS
+            export GOPATH=$HOME/.go
+            export PATH="$HOME/.local/bin:$PATH"
+            export PATH="$HOME/.local/scripts:$PATH"
+            [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+            if [ -f "$HOME/.zshrc.secrets" ]; then
+                source "$HOME/.zshrc.secrets"
+            fi
+            '')
+        ];
     };
 
     programs.fzf = {
@@ -102,6 +109,8 @@
 
     # sort later
     home.packages = with pkgs; [
+    hyprpaper
+    waypaper
     claude-code
     pnpm
     spotify
