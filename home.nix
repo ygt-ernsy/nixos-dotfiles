@@ -102,6 +102,7 @@
 
     # sort later
     home.packages = with pkgs; [
+    claude-code
     pnpm
     spotify
     vscode

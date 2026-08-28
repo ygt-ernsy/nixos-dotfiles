@@ -125,6 +125,8 @@
   nixpkgs.config.allowUnfree = true; 
 
   environment.systemPackages = with pkgs; [
+    nodejs
+    postgrest
     inputs.helium.packages.${pkgs.hostPlatform.system}.default
     gsettings-desktop-schemas
     vim
