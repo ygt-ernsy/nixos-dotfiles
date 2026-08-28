@@ -72,6 +72,13 @@
         package = pkgs.bibata-cursors;
         size = 12;
         x11.enable = true;
+        gtk.enable = true;
+    };
+
+    systemd.user.sessionVariables = {
+        XCURSOR_SIZE = toString config.home.pointerCursor.size;
+        XCURSOR_THEME = config.home.pointerCursor.name;
+        NIXOS_OZONE_WL = "1";
     };
 
     qt = {
