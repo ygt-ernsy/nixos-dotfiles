@@ -155,5 +155,12 @@
 	quickshell
 	nodejs
 	gcc
+    elephant
+    walker
+    wl-clipboard
+    imagemagick
+    hyprlock
+    jq
+    libnotify
     ];
 }
