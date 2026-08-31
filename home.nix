@@ -116,6 +116,8 @@
 
     # sort later
     home.packages = with pkgs; [
+    spoofdpi
+    vesktop
     hyprpaper
     waypaper
     claude-code
