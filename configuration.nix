@@ -28,7 +28,6 @@
   "udev.log_priority=3"
   ];
 
-
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
@@ -55,6 +54,25 @@
 
   services.resolved.enable = true;
   networking.networkmanager.dns = "systemd-resolved";
+
+  systemd.services.spoofdpi = {
+  description = "SpoofDPI Service";
+  wantedBy = [ "multi-user.target" ];
+  wants = [ "network-online.target" ];
+  after = [ "network-online.target" ];
+
+  serviceConfig = {
+    # Assuming spoofdpi is available in pkgs
+      ExecStart = "${pkgs.spoofdpi}/bin/spoofdpi --dns-mode https --https-split-mode chunk --https-chunk-size 1 --https-fake-count 5 --listen-addr 127.0.0.1:9090";
+      Restart = "always";
+      RestartSec = "5";
+
+    # Run securely with only the specific network capability needed
+      DynamicUser = true;
+      AmbientCapabilities = [ "CAP_NET_RAW" ];
+      CapabilityBoundingSet = [ "CAP_NET_RAW" ];
+      };
+  };
 
   hardware.bluetooth = {
       enable = true;
@@ -140,7 +158,7 @@
     kitty
   ];
 
-  environment.variables.GSETTINGS_SCHEMA_DIR =
+  environment.sessionVariables.GSETTINGS_SCHEMA_DIR =
       "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
 
   services.dbus.packages = with pkgs; [ 

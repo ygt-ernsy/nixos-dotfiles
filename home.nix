@@ -116,6 +116,7 @@
 
     # sort later
     home.packages = with pkgs; [
+    cliphist
     spoofdpi
     vesktop
     hyprpaper
