@@ -15,6 +15,8 @@
     useOSProber = true;
     configurationLimit = 10;
     efiInstallAsRemovable = true;
+    splashImage = null;
+    theme = null;
   };
 
   boot.loader.efi.canTouchEfiVariables = false;
@@ -144,6 +146,8 @@
   programs.dconf.enable = true;
 
   nixpkgs.config.allowUnfree = true; 
+
+  programs.nix-ld.enable = true;
 
   environment.systemPackages = with pkgs; [
     xsettingsd

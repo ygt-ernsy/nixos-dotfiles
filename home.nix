@@ -28,6 +28,7 @@
             t = "tmux a || tmux";
             v = "nvim";
             nrs = "sudo nixos-rebuild switch --flake $HOME/nixos-dotfiles#nixos-btw";
+            cvim = "NVIM_APPNAME=cvim nvim";
         };
 
         initContent = lib.mkMerge [
@@ -181,5 +182,6 @@
     hyprlock
     jq
     libnotify
+    gnumake
     ];
 }
