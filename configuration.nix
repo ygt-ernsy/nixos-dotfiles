@@ -150,10 +150,10 @@
 
   environment.systemPackages = with pkgs; [
     xsettingsd
-    xorg.xrdb
+    xrdb
     nodejs
     postgrest
-    inputs.helium.packages.${pkgs.hostPlatform.system}.default
+    inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
     gsettings-desktop-schemas
     vim
     wget
