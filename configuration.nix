@@ -95,9 +95,8 @@
   time.timeZone = "Europe/Istanbul";
 
   # Wayland wms
-  programs.hyprland = {
-    enable = true;
-  };
+  programs.hyprland.enable = true;
+  programs.mango.enable = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
