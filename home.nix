@@ -145,11 +145,8 @@
     fzf
     fnm
     adw-gtk3
-    gtk-engine-murrine
     sassc
     gnome-themes-extra
-    rose-pine-gtk-theme
-    tokyonight-gtk-theme
     glib
     stow
     libsForQt5.qtstyleplugin-kvantum
