@@ -1,5 +1,9 @@
  { config, pkgs, lib, ... }:
 
+let
+    rose-pine-gtk-custom = pkgs.callPackage ./themes/rose-pine.nix {};
+    tokyonight-gtk-custom = pkgs.callPackage ./themes/tokyonight.nix {};
+in
 {
     home.username = "yigit";
     home.homeDirectory = "/home/yigit";
@@ -29,6 +33,7 @@
             v = "nvim";
             nrs = "sudo nixos-rebuild switch --flake $HOME/nixos-dotfiles#nixos-btw";
             cvim = "NVIM_APPNAME=cvim nvim";
+            iytevpn = "sudo openconnect --protocol=gp vpn3.iyte.edu.tr";
         };
 
         initContent = lib.mkMerge [
@@ -117,6 +122,10 @@
 
     # sort later
     home.packages = with pkgs; [
+    tokyonight-gtk-custom
+    rose-pine-gtk-custom
+    neural-amp-modeler-lv2
+    openconnect
     cliphist
     spoofdpi
     vesktop
