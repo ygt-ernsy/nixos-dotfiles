@@ -123,6 +123,9 @@ in
 
     # sort later
     home.packages = with pkgs; [
+	ardour
+	qpwgraph
+	guitarix
     tokyonight-gtk-custom
     rose-pine-gtk-custom
     neural-amp-modeler-lv2
