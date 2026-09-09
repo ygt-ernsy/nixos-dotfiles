@@ -123,6 +123,7 @@ in
 
     # sort later
     home.packages = with pkgs; [
+	brave-origin
 	ardour
 	qpwgraph
 	guitarix
