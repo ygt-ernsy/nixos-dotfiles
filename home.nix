@@ -145,7 +145,6 @@ in
     kdePackages.qtmultimedia
     kdePackages.okular
     pavucontrol
-    carla
     tmux
     dgop
     obsidian
